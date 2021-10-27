@@ -30,6 +30,10 @@ public abstract class AbstractDao<T> {
         return t;
     }
 
+    public T update(T t){
+        return em.merge(t);
+    }
+
     public void remove(T t){
         em.remove(t);
     }

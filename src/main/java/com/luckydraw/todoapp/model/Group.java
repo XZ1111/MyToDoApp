@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -22,14 +21,15 @@ public class Group {
     @NotNull
     private String name;
 
+    //TODO refactor date format
     @Column(name = "date")
     @NotNull
     private Date date;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "note_list_id")
     private NotesList notesList;
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Note> notes;
 }

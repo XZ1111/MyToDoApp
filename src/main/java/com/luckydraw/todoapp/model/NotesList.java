@@ -22,15 +22,16 @@ public class NotesList {
     @NotNull
     private String name;
 
+    //TODO refactor date format
     @Column(name = "date")
     @NotNull
     private Date date;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "notesList", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "notesList", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Group> groups;
 
 }

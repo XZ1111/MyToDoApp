@@ -24,15 +24,16 @@ public class Note {
     @NotNull
     private String text;
 
+    //TODO refactor date format
     @Column(name = "date")
     @NotNull
     private Date date;
 
-    @Column(name = "completed")
+    @Column(name = "complete")
     @NotNull
     private Boolean completed;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "group_id")
     private Group group;
 }

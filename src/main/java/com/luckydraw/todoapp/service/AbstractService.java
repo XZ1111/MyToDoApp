@@ -31,6 +31,10 @@ public abstract class AbstractService<T> {
         abstractDao.remove(t);
     }
 
+    public T update(T t){
+        return abstractDao.update(t);
+    }
+
     public List<T> getAll(){
         return abstractDao.getAll();
     }
