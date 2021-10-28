@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/popper/popper.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
+
+    <title>My TODO App</title>
+
+</head>
+<body>
+<div>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container-fluid">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th></th>
+                <th></th>
+                <th>
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addModal">Add +</button>
+                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <form th:action="@{/notes-list/new}" method="post">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New Student</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">New List</label>
+                                            <input type="text" class="form-control" id="recipient-name" name="name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each ="notesList : ${notesList}">
+                <td th:utext="${notesList.id}">...</td>
+                <td th:utext="${notesList.name}">...</td>
+                <td th:utext="${notesList.date}">...</td>
+                <td><button type="button" class="btn btn-success">Go</button></td>
+                <td><button type="button" class="btn btn-warning">Edit</button> </td>
+                <td>
+                    <form action="#" th:action="@{/notes-list/delete/{id}(id=${notesList.id})}" method="get">
+                        <button class="btn btn-danger" th:id="'delete_notes_list' + ${notesList.id}" type="submit">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+</body>
+</html>
