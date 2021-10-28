@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Controller
 public class HomeController {
+    //TODO implement security and delete userServiceExt
 
     private UserServiceExt userServiceExt;
 
