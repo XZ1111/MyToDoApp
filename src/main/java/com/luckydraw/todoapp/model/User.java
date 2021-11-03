@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -18,15 +17,14 @@ public class User {
 
     @Column(name = "name")
     @NotNull
-    private String name;
+    private String username;
 
     @Column(name = "password")
     @NotNull
     private String password;
 
-    @Column(name = "enabled")
-    @NotNull
-    public Boolean enabled;
+    @Transient
+    private String passwordConfirm;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<NotesList> notesList;

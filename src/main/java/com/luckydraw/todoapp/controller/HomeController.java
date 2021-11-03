@@ -3,8 +3,6 @@ package com.luckydraw.todoapp.controller;
 
 import com.luckydraw.todoapp.model.NotesList;
 import com.luckydraw.todoapp.model.User;
-import com.luckydraw.todoapp.service.ext.NotesListServiceExt;
-import com.luckydraw.todoapp.service.ext.UserServiceExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +21,12 @@ import java.util.Optional;
 public class HomeController {
     //TODO implement security and delete userServiceExt
 
-    private UserServiceExt userServiceExt;
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String index(Model model){
+        return "index";
+    }
+
+    /*private UserServiceExt userServiceExt;
 
     private NotesListServiceExt notesListServiceExt;
 
@@ -63,7 +66,7 @@ public class HomeController {
         notesList.setUser(userServiceExt.getById(1L));
         notesListServiceExt.create(notesList);
         return "redirect:/index";
-    }
+    }*/
 
 
 }
