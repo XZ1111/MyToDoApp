@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -26,7 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(s);
         if (user == null) throw new UsernameNotFoundException(s);
@@ -36,6 +36,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        return new User(user.getId(), user.getUsername(), user.getPassword(),user.getRoles(), user.getAuthorities());
     }
 }

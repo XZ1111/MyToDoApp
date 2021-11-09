@@ -47,9 +47,10 @@ public class RegAuthController {
 
         userService.save(userForm);
 
+        //TODO delete autologin
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/index";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
