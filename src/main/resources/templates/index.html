@@ -23,6 +23,8 @@
                 <th>Date</th>
                 <th></th>
                 <th></th>
+
+                <!--Modal for add new notes list-->
                 <th>
                     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addModal">Add +</button>
                     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,7 +32,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">New Student</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">New Notes List</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -50,6 +52,7 @@
                         </form>
                     </div>
                 </th>
+            <!--End of modal-->
             </tr>
             </thead>
             <tbody>
@@ -58,7 +61,9 @@
                 <td th:utext="${notesList.name}">...</td>
                 <td th:utext="${notesList.date}">...</td>
                 <td><button type="button" class="btn btn-success">Go</button></td>
-                <td><button type="button" class="btn btn-warning">Edit</button> </td>
+                <td>
+
+                </td>
                 <td>
                     <form action="#" th:action="@{/notes-list/delete/{id}(id=${notesList.id})}" method="get">
                         <button class="btn btn-danger" th:id="'delete_notes_list' + ${notesList.id}" type="submit">
@@ -69,6 +74,8 @@
             </tr>
             </tbody>
         </table>
+
+
 
     </div>
 

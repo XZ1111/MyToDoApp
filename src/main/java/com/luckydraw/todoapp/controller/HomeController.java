@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.Date;
@@ -32,7 +31,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String index (Model model, Principal principal){
+    public String index(Model model, Principal principal) {
         List<NotesList> notesList = notesListRepository.findAllByUser(getCurrentUser(principal));
 
         model.addAttribute("notesList", notesList);
@@ -40,30 +39,25 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/notes-list/delete/{id}", method = RequestMethod.GET)
-    public String deleteNotesList(@PathVariable("id") long id){
+    public String deleteNotesList(@PathVariable("id") Long id) {
         NotesList notesList = notesListRepository.getById(id);
 
-        if(notesList != null) notesListRepository.delete(notesList);
-        else return null;//TODO implements error
+        if (notesList != null) notesListRepository.delete(notesList);
 
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "/notes-list/getList", method = RequestMethod.GET)
-    @ResponseBody
-    public NotesList getList(Long id){
-        return notesListRepository.getById(id);
-    }
 
     @RequestMapping(value = "/notes-list/new", method = RequestMethod.POST)
-    public String create(NotesList notesList, Principal principal){
+    public String create(NotesList notesList, Principal principal) {
+        //TODO do something with date
         notesList.setDate(new Date());
         notesList.setUser(userRepository.getById(getCurrentUser(principal).getId()));
         notesListRepository.save(notesList);
         return "redirect:/index";
     }
 
-    public User getCurrentUser(Principal principal){
+    private User getCurrentUser(Principal principal) {
         return ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
