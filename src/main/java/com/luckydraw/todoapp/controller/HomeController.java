@@ -47,6 +47,14 @@ public class HomeController {
         return "redirect:/index";
     }
 
+    @RequestMapping(value = "/notes-list/update", method = RequestMethod.POST)
+    public String update(NotesList nl){
+        NotesList notesList = notesListRepository.getById(nl.getId());
+        notesList.setName(nl.getName());
+        notesListRepository.save(notesList);
+
+        return "redirect:/index";
+    }
 
     @RequestMapping(value = "/notes-list/new", method = RequestMethod.POST)
     public String create(NotesList notesList, Principal principal) {
