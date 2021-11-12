@@ -21,7 +21,6 @@ import java.util.List;
 public class HomeController {
 
     private UserRepository userRepository;
-
     private NotesListRepository notesListRepository;
 
     @Autowired
@@ -48,7 +47,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/notes-list/update", method = RequestMethod.POST)
-    public String update(NotesList nl){
+    public String update(NotesList nl) {
         NotesList notesList = notesListRepository.getById(nl.getId());
         notesList.setName(nl.getName());
         notesListRepository.save(notesList);

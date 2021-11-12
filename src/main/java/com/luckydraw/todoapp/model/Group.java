@@ -30,6 +30,6 @@ public class Group {
     @JoinColumn(name = "note_list_id")
     private NotesList notesList;
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Note> notes;
 }

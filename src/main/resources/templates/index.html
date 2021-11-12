@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-        lang="en">
+      lang="en">
 <head>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -13,119 +13,134 @@
 <body>
 <div>
     <div th:replace="fragments/header :: header"/>
+</div>
 
-    <div class="container-fluid">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th></th>
-                <th></th>
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th></th>
+            <th></th>
 
-                <!--Modal for add new notes list-->
-                <th>
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addModal">Add +</button>
-                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form th:action="@{/notes-list/new}" method="post">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">New Notes List</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">New List</label>
-                                            <input type="text" class="form-control" id="recipient-name" name="name">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
+            <!--Modal for add new notes list-->
+            <th>
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addModal">Add
+                    +
+                </button>
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <form th:action="@{/notes-list/new}" method="post">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New Notes List</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">New List</label>
+                                        <input type="text" class="form-control" id="recipient-name" name="name">
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                </th>
+                        </div>
+                    </form>
+                </div>
+            </th>
             <!--End of modal-->
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each ="notesList : ${notesList}">
-                <td th:utext="${notesList.id}">...</td>
-                <td th:utext="${notesList.name}">...</td>
-                <td th:utext="${notesList.date}">...</td>
-                <td><button type="button" class="btn btn-success">Go</button></td>
-                <td>
-                    <!--Edit modal-->
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" th:attrappend="data-target=${notesList.id}">Edit</button>
-                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" th:attrappend="id=${notesList.id}">
-                        <form th:action="@{/notes-list/update}" method="post">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Edit Notes List</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Edit text</label>
-                                            <input type="hidden" class="form-control" id="recipient-id" name="id"  th:value="${notesList.id}">
-                                            <input type="text" class="form-control" id="recipient-notesListName" name="name" th:value="${notesList.name}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notesList : ${notesList}">
+            <td th:utext="${notesList.id}">...</td>
+            <td th:utext="${notesList.name}">...</td>
+            <td th:utext="${notesList.date}">...</td>
+            <td>
+                <form action="#" th:action="@{/notes-list/{id}/notes(id=${notesList.id})}" method="get">
+                    <button class="btn btn-success" th:id="'get-notes' + ${notesList.id}" type="submit">
+                        Go
+                    </button>
+                </form>
+            </td>
+            <td>
+                <!--Edit modal-->
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+                        th:attrappend="data-target=${notesList.id}">Edit
+                </button>
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                     aria-hidden="true" th:attrappend="id=${notesList.id}">
+                    <form th:action="@{/notes-list/update}" method="post">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Notes List</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Edit text</label>
+                                        <input type="hidden" class="form-control" id="recipient-id" name="id"
+                                               th:value="${notesList.id}">
+                                        <input type="text" class="form-control" id="recipient-notesListName" name="name"
+                                               th:value="${notesList.name}">
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!--End of modal-->
-                </td>
-                <td>
-                    <!--Delete modal-->
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:attrappend="data-target=${notesList.id}">Delete</button>
-                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true" th:attrappend="id=${notesList.id}">
-                        <form th:action="@{/notes-list/delete/{id}(id=${notesList.id})}" method="get">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Remove notes list</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Are you sure?</label>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                        <button type="submit" class="btn btn-primary">Yes</button>
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <!--End of modal-->
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                        </div>
+                    </form>
+                </div>
+                <!--End of modal-->
+            </td>
+            <td>
+                <!--Delete modal-->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
+                        th:attrappend="data-target=${notesList.id}">Delete
+                </button>
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                     aria-hidden="true" th:attrappend="id=${notesList.id}">
+                    <form th:action="@{/notes-list/delete/{id}(id=${notesList.id})}" method="get">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Remove notes list</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Are you sure?</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--End of modal-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-
-
-    </div>
 
 </div>
 </body>
